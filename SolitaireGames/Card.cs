@@ -24,11 +24,10 @@ namespace SolitaireGames
         {
             this.Suit = suit;
             this.Value = value;
-            FaceDown = true;
 
             UpdateColor();
             SetupImage();
-
+            FaceDown = true;
         }
 
         private void SetupImage()
@@ -36,72 +35,72 @@ namespace SolitaireGames
             Image = new Image();
             _bitmapImage = new BitmapImage();
             _faceDownBitmapImage = new BitmapImage();
-            String _uri = @"./Assets/Playing Cards/";
-
-            // convert the value to path string
-            _uri = SuitToString();
+            String _uri = @"/SolitaireGames;component/Assets/Playing Cards/";
 
             // convert the suit to path string
-            _uri = ValueToString();
+            _uri += ValueToString();
+            _uri += "_of_";
+
+            // convert the value to path string
+            _uri += SuitToString();
+            _uri += ".png";
 
             _bitmapImage.BeginInit();
             _bitmapImage.UriSource = new Uri(_uri, UriKind.Relative);
-            _bitmapImage.DecodePixelWidth = 200;
+            _bitmapImage.DecodePixelWidth = 400;
             _bitmapImage.EndInit();
             _faceDownBitmapImage.BeginInit();
-            _faceDownBitmapImage.UriSource = new Uri(@"./Assets/Playing Cards/card back.png");
-            _faceDownBitmapImage.DecodePixelWidth = 200;
+            _faceDownBitmapImage.UriSource = new Uri(@"/SolitaireGames;component/Assets/Playing Cards/card back.png", UriKind.Relative);
+            _faceDownBitmapImage.DecodePixelWidth = 400;
             _faceDownBitmapImage.EndInit();
             Image.Source = _faceDownBitmapImage;
         }
 
-        private String SuitToString()
+        private String ValueToString()
         {
-            String s = "";
             if ((int)Value == 0)
             {
-                s = s + "ace";
+               return "ace";
+            }
+            else if ((int)Value == 10)
+            {
+                return "jack";
             }
             else if ((int)Value == 11)
             {
-                s = s + "jack";
+                return "queen";
             }
             else if ((int)Value == 12)
             {
-                s = s + "queen";
-            }
-            else if ((int)Value == 13)
-            {
-                s = s + "king";
+                return "king";
             }
             else
             {
-                s = s + (((int)Value) - 1).ToString();
+                return (((int)Value) + 1).ToString();
             }
-            return s;
         }
 
-        private String ValueToString()
+        private String SuitToString()
         {
-            String s = "";
             if (Suit == SolitaireGames.CardSuit.Hearts)
             {
-                s = s + "_of_hearts.png";
+                return "hearts";
             }
             else if (Suit == SolitaireGames.CardSuit.Diamonds)
             {
-                s = s + "_of_diamonds.png";
+                return "diamonds";
             }
             else if (Suit == SolitaireGames.CardSuit.Clubs)
             {
-                s = s + "_of_clubs.png";
+                return "clubs";
             }
             else
             {
-                s = s + "_of_spades.png";
+                return "spades";
             }
-            return s;
         }
+
+        
 
         private void UpdateColor()
         {

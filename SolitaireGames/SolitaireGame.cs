@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SolitaireGames
 {
-    class SolitaireGame
+    public class SolitaireGame
     {
-        Tableau tableau = new Tableau();
-        Deck deck = new Deck();
+        private Tableau tableau = new Tableau();
+        private Deck deck = new Deck();
 
         public SolitaireGame() 
         {
@@ -25,14 +25,19 @@ namespace SolitaireGames
                 Pile newPile = new Pile();
                 for (int j = 0; j <= i; j++)
                 {
-                    newPile.AddCard(Deck.draw());
+                    Card card = Deck.draw();
+                    newPile.AddCard(card, j);
+                    if (j == i)
+                    {
+                        card.FaceDown = false;
+                    }
                 }
                 Tableau.SetPile(newPile, i);
             }
         }
 
-        internal Tableau Tableau { get => tableau; set => tableau = value; }
-        internal Deck Deck { get => deck; set => deck = value; }
+        public Tableau Tableau { get => tableau; set => tableau = value; }
+        public Deck Deck { get => deck; set => deck = value; }
 
     }
 }

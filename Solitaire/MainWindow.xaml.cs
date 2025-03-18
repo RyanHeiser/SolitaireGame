@@ -17,10 +17,30 @@ namespace Solitaire;
 /// </summary>
 public partial class MainWindow : Window
 {
+    SolitaireGame solitaire = new SolitaireGame();
     public MainWindow()
     {
         InitializeComponent();
-        this.DataContext = this;
+        DisplayTableau();
+    }
+
+    private void DisplayTableau()
+    {
+        for (int i = 0; i < Tableau.NumPiles; i++)
+        {
+            Pile pile = solitaire.Tableau.Piles[i];
+            for (int j = 0; j < pile.Cards.Count; j++)
+            {
+                Image image = pile.Cards[j].Image;
+                System.Diagnostics.Debug.WriteLine(image.Source);
+                Grid.SetColumn(image, i);
+                Grid.SetRow(image, j);
+                Grid.SetRowSpan(image, 2);
+                image.Visibility = Visibility.Visible;
+                tableauGrid.Children.Add(image);
+
+            }
+        }
     }
    
 }

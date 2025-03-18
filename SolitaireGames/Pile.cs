@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SolitaireGames
 {
-    class Pile
+    public class Pile
     {
         protected ObservableCollection<Card> _cards = new ObservableCollection<Card>();
 

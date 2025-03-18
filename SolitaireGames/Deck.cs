@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolitaireGames
 {
-    class Deck : Pile
+    public class Deck : Pile
     {
         public Deck()
         {
@@ -18,7 +18,7 @@ namespace SolitaireGames
         {
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 1; j < 14; j++)
+                for (int j = 0; j < 13; j++)
                 {
                     if (i == 0)
                     {
