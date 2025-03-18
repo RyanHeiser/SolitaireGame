@@ -25,16 +25,18 @@ namespace SolitaireGames
                 Pile newPile = new Pile();
                 for (int j = 0; j <= i; j++)
                 {
-                    Card card = Deck.draw();
+                    Card card = Deck.Draw();
                     newPile.AddCard(card, j);
                     if (j == i)
                     {
                         card.FaceDown = false;
+                        card.Image.AllowDrop = true;
                     }
                 }
                 Tableau.SetPile(newPile, i);
             }
         }
+
 
         public Tableau Tableau { get => tableau; set => tableau = value; }
         public Deck Deck { get => deck; set => deck = value; }

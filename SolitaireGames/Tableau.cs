@@ -26,6 +26,48 @@ namespace SolitaireGames
             return true;
         }
 
+        public void MoveCard(Card moved, Card movedTo)
+        {
+            Pile pile = GetPile(moved);
+            int movedIndex = pile.GetIndexOfCard(moved);
+            if (movedIndex > 0)
+            {
+                pile.GetCard(movedIndex - 1).FaceDown = false;
+            }
+            Pile newPile = GetPile(movedTo);
+            newPile.AddCard(moved, newPile.GetIndexOfCard(movedTo) + 1);
+            pile.RemoveCard(moved);
+
+            if (moved.FaceDown)
+            {
+                moved.FaceDown = false;
+            }
+        }
+
+        public Boolean Contains(Card c)
+        {
+            for (int i = 0; i < NumPiles; i++)
+            {
+                if (Piles[i].Cards.Contains(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Pile GetPile(Card c)
+        {
+            for (int i = 0; i < NumPiles; i++)
+            {
+                if (Piles[i].Cards.Contains(c))
+                {
+                    return Piles[i];
+                }
+            }
+            return null;
+        }
+
         public Pile[] Piles { get => piles; set => piles = value; }
 
         public static int NumPiles => numPiles;

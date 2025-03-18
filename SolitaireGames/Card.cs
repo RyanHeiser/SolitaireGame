@@ -16,6 +16,7 @@ namespace SolitaireGames
         private SolitaireGames.CardSuit _suit;
         private SolitaireGames.CardValue _value;
         private Boolean _faceDown;
+        private Boolean _dragging;
         private Image _image;
         private BitmapImage _bitmapImage;
         private BitmapImage _faceDownBitmapImage;
@@ -33,6 +34,9 @@ namespace SolitaireGames
         private void SetupImage()
         {
             Image = new Image();
+            Image.Tag = this;
+            Image.AllowDrop = false;
+
             _bitmapImage = new BitmapImage();
             _faceDownBitmapImage = new BitmapImage();
             String _uri = @"/SolitaireGames;component/Assets/Playing Cards/";
@@ -128,9 +132,11 @@ namespace SolitaireGames
                 {
                     _faceDown = false;
                     Image.Source = _bitmapImage;
+                    Image.AllowDrop = true;
                 }
             }
         }
         public Image Image { get => _image; set => _image = value; }
+        public bool Dragging { get => _dragging; set => _dragging = value; }
     }
 }

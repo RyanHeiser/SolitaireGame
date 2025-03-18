@@ -10,7 +10,7 @@
         <Grid Name="top" DockPanel.Dock="Top">
             
         </Grid>
-        <Grid Name="tableauGrid" ShowGridLines="True">
+        <Grid Name="tableauGrid" AllowDrop="True" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

@@ -20,12 +20,17 @@ namespace SolitaireGames
             this.Cards = cards;
         }
 
-        public Card getCard(int index)
+        public Card GetCard(int index)
         {
             return Cards[index];
         }
 
-        public Card draw()
+        public int GetIndexOfCard(Card card)
+        {
+            return Cards.IndexOf(card);
+        }
+
+        public Card Draw()
         {
             Card card = Cards[0];
             Cards.RemoveAt(0);
@@ -35,6 +40,11 @@ namespace SolitaireGames
         public void AddCard(Card card, int index = 0)
         {
             Cards.Insert(index, card);
+        }
+
+        public void RemoveCard(Card card)
+        {
+            Cards.Remove(card);
         }
 
         public ObservableCollection<Card> Cards { get => _cards; set => _cards = value; }
