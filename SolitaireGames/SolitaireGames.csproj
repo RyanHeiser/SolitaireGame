@@ -1,0 +1,148 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Playing Cards\10_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\10_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\10_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\10_of_spades.png" />
+    <None Remove="Assets\Playing Cards\2_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\2_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\2_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\2_of_spades.png" />
+    <None Remove="Assets\Playing Cards\3_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\3_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\3_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\3_of_spades.png" />
+    <None Remove="Assets\Playing Cards\4_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\4_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\4_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\4_of_spades.png" />
+    <None Remove="Assets\Playing Cards\5_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\5_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\5_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\5_of_spades.png" />
+    <None Remove="Assets\Playing Cards\6_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\6_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\6_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\6_of_spades.png" />
+    <None Remove="Assets\Playing Cards\7_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\7_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\7_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\7_of_spades.png" />
+    <None Remove="Assets\Playing Cards\8_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\8_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\8_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\8_of_spades.png" />
+    <None Remove="Assets\Playing Cards\9_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\9_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\9_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\9_of_spades.png" />
+    <None Remove="Assets\Playing Cards\ace_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\ace_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\ace_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\ace_of_spades.png" />
+    <None Remove="Assets\Playing Cards\ace_of_spades2.png" />
+    <None Remove="Assets\Playing Cards\black_joker.png" />
+    <None Remove="Assets\Playing Cards\jack_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\jack_of_clubs2.png" />
+    <None Remove="Assets\Playing Cards\jack_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\jack_of_diamonds2.png" />
+    <None Remove="Assets\Playing Cards\jack_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\jack_of_hearts2.png" />
+    <None Remove="Assets\Playing Cards\jack_of_spades.png" />
+    <None Remove="Assets\Playing Cards\jack_of_spades2.png" />
+    <None Remove="Assets\Playing Cards\king_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\king_of_clubs2.png" />
+    <None Remove="Assets\Playing Cards\king_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\king_of_diamonds2.png" />
+    <None Remove="Assets\Playing Cards\king_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\king_of_hearts2.png" />
+    <None Remove="Assets\Playing Cards\king_of_spades.png" />
+    <None Remove="Assets\Playing Cards\king_of_spades2.png" />
+    <None Remove="Assets\Playing Cards\queen_of_clubs.png" />
+    <None Remove="Assets\Playing Cards\queen_of_clubs2.png" />
+    <None Remove="Assets\Playing Cards\queen_of_diamonds.png" />
+    <None Remove="Assets\Playing Cards\queen_of_diamonds2.png" />
+    <None Remove="Assets\Playing Cards\queen_of_hearts.png" />
+    <None Remove="Assets\Playing Cards\queen_of_hearts2.png" />
+    <None Remove="Assets\Playing Cards\queen_of_spades.png" />
+    <None Remove="Assets\Playing Cards\queen_of_spades2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Playing Cards\10_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\10_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\10_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\10_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\2_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\2_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\2_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\2_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\3_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\3_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\3_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\3_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\4_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\4_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\4_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\4_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\5_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\5_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\5_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\5_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\6_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\6_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\6_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\6_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\7_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\7_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\7_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\7_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\8_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\8_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\8_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\8_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\9_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\9_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\9_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\9_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\ace_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\ace_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\ace_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\ace_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\ace_of_spades2.png" />
+    <Resource Include="Assets\Playing Cards\black_joker.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_clubs2.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_diamonds2.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_hearts2.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\jack_of_spades2.png" />
+    <Resource Include="Assets\Playing Cards\king_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\king_of_clubs2.png" />
+    <Resource Include="Assets\Playing Cards\king_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\king_of_diamonds2.png" />
+    <Resource Include="Assets\Playing Cards\king_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\king_of_hearts2.png" />
+    <Resource Include="Assets\Playing Cards\king_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\king_of_spades2.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_clubs.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_clubs2.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_diamonds.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_diamonds2.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_hearts.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_hearts2.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_spades.png" />
+    <Resource Include="Assets\Playing Cards\queen_of_spades2.png" />
+  </ItemGroup>
+
+</Project>
