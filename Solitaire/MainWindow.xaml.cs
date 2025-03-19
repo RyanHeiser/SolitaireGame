@@ -40,7 +40,6 @@ public partial class MainWindow : Window
                 Image image = pile.Cards[j].Image;
                 image.MouseMove += Card_MouseMove;
                 image.Drop += TableauCard_Drop;
-                //image.Drop += StockAndTalonCard_Drop;
                 Grid.SetColumn(image, i);
                 Grid.SetRow(image, j);
                 Grid.SetRowSpan(image, 3);
@@ -57,7 +56,6 @@ public partial class MainWindow : Window
         {
             Image image = solitaire.Stock.Cards[i].Image;
             image.MouseMove += Card_MouseMove;
-            //image.Drop += StockAndTalonCard_Drop;
             image.Drop += TableauCard_Drop;
             image.MouseDown += OnStockClick;
             Grid.SetColumn(image, 0);
@@ -139,9 +137,13 @@ public partial class MainWindow : Window
                         Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1);
                         talonGrid.Children.Remove(draggedCard.Image);
                         tableauGrid.Children.Add(draggedCard.Image);
-                        //draggedCard.Image.Drop -= StockAndTalonCard_Drop;
                         draggedCard.Image.MouseDown -= OnStockClick;
-                        //draggedCard.Image.Drop += TableauCard_Drop;
+
+                        if (Grid.GetRow(draggedCard.Image) >= tableauGrid.RowDefinitions.Count - 3)
+                        {
+                            System.Diagnostics.Debug.WriteLine("adding row");
+                            AddTableauRow();
+                        }
 
                         for (int i = 1; i < 3; i++)
                         {
@@ -165,8 +167,10 @@ public partial class MainWindow : Window
 
     private void OnStockClick(object sender, RoutedEventArgs e)
     {
+        System.Diagnostics.Debug.WriteLine("stock click");
         if (solitaire.Stock.Cards.Count > 0)
         {
+            System.Diagnostics.Debug.WriteLine("more than 0");
             Card card = solitaire.Stock.Draw();
             card.FaceDown = false;
             Grid.SetColumn(card.Image, 0);
@@ -179,8 +183,6 @@ public partial class MainWindow : Window
             card.Image.MouseDown -= OnStockClick;
             card.Draggable = true;
 
-            //TODO: only allow dragging top card of talon. Will have to change Card_MouseMove to check if card can be dragged
-
             for (int i = 1; i <= 2; i++)
             {
                 if (solitaire.Talon.Cards.Count > i)
@@ -190,8 +192,38 @@ public partial class MainWindow : Window
                     solitaire.Talon.GetCard(i).Draggable = false;
                 }
             }
-            
+
+            if (solitaire.Stock.Cards.Count == 0)
+            {
+                resetStockButton.Visibility = Visibility.Visible;
+            }
+
         }
+    }
+
+    private void ResetStock_Click(object sender, EventArgs e)
+    {
+        if (solitaire.Stock.Cards.Count != 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < solitaire.Talon.Cards.Count; i++)
+        {
+            Card card = solitaire.Talon.Cards[i];
+            card.FaceDown = true;
+            card.Draggable = false;
+            card.Image.MouseDown += OnStockClick;
+            talonGrid.Children.Remove(card.Image);
+            stockAndTalonGrid.Children.Add(card.Image);
+            Grid.SetColumn(card.Image, 0);
+            Grid.SetRow(card.Image, 0);
+            Grid.SetRowSpan(card.Image, 1);
+            Grid.SetZIndex(card.Image, i);
+            solitaire.Stock.AddCard(card);
+        }
+        solitaire.Talon.Cards.Clear();
+        resetStockButton.Visibility = Visibility.Hidden;
     }
 
     private void BringToFront(Grid grid, Image image)

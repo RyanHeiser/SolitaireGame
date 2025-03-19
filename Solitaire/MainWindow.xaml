@@ -7,14 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel Name="playingArea">
-        <Grid Name="stockAndTalonGrid" DockPanel.Dock="Left" Margin="10">
+        <Grid Name="stockAndTalonGrid" ShowGridLines="True" DockPanel.Dock="Left" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height = "*" />
                 <RowDefinition Height = "2*" />
                 <RowDefinition Height = "*" />
             </Grid.RowDefinitions>
-            <Grid Name="talonGrid" Grid.Row="1" ShowGridLines="True" Margin="10">
+            <Button Name="resetStockButton" Grid.Row="0" Visibility="Hidden" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="0" Click="ResetStock_Click" FontSize="36" Content="Reset" />
+            <Grid Name="talonGrid" Grid.Row="1" ShowGridLines="True">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -23,7 +25,7 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Grid>
-        <Grid Name="foundationGrid" DockPanel.Dock="Right" Margin="10">
+        <Grid Name="foundationGrid" DockPanel.Dock="Right" ShowGridLines="True" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -31,7 +33,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <Grid Name="tableauGrid" AllowDrop="True" Margin="10">
+        <Grid Name="tableauGrid" AllowDrop="True" ShowGridLines="True" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
