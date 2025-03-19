@@ -22,7 +22,13 @@ namespace SolitaireGames
 
         public Card GetCard(int index)
         {
-            return Cards[index];
+            if (Cards.Count > index)
+            {
+                return Cards[index];
+            } else
+            {
+                return null;
+            }
         }
 
         public int GetIndexOfCard(Card card)

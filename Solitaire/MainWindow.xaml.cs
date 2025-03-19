@@ -27,6 +27,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DisplayTableau();
+        DisplayStock();
     }
 
     private void DisplayTableau()
@@ -37,10 +38,8 @@ public partial class MainWindow : Window
             for (int j = 0; j < pile.Cards.Count; j++)
             {
                 Image image = pile.Cards[j].Image;
-                //image.MouseDown += Card_MouseDown;
                 image.MouseMove += Card_MouseMove;
-                //image.MouseUp += Card_MouseUp;
-                image.Drop += Card_Drop;
+                image.Drop += TableauCard_Drop;
                 Grid.SetColumn(image, i);
                 Grid.SetRow(image, j);
                 Grid.SetRowSpan(image, 2);
@@ -48,6 +47,21 @@ public partial class MainWindow : Window
                 tableauGrid.Children.Add(image);
 
             }
+        }
+    }
+
+    private void DisplayStock()
+    {
+        for (int i = 0; i < solitaire.Stock.Cards.Count; i++)
+        {
+            Image image = solitaire.Stock.Cards[i].Image;
+            image.MouseMove += Card_MouseMove;
+            image.Drop += StockAndTalonCard_Drop;
+            image.MouseDown += OnStockClick;
+            Grid.SetColumn(image, 0);
+            Grid.SetRow(image, 0);
+            Grid.SetZIndex(image, i);
+            stockAndTalonGrid.Children.Add(image);
         }
     }
 
@@ -63,7 +77,7 @@ public partial class MainWindow : Window
         Image image = (Image)sender;
         Card card = (Card)image.Tag;
 
-        if (e.LeftButton == MouseButtonState.Pressed && image.AllowDrop)
+        if (e.LeftButton == MouseButtonState.Pressed && !card.FaceDown)
         {
             System.Diagnostics.Debug.WriteLine("drop allowed");
             draggedCard = card;
@@ -72,7 +86,7 @@ public partial class MainWindow : Window
         
     }
 
-    private void Card_Drop(object sender, DragEventArgs e)
+    private void TableauCard_Drop(object sender, DragEventArgs e)
     {
         Image image = (Image)sender;
         Card card = (Card)image.Tag;
@@ -111,6 +125,51 @@ public partial class MainWindow : Window
            
         }
         draggedCard = null;
+    }
+
+    private void StockAndTalonCard_Drop(object sender, EventArgs e)
+    {
+        Image image = (Image)sender;
+        Card card = (Card)image.Tag;
+
+        if (image.AllowDrop && card != draggedCard)
+        {
+            if (solitaire.Tableau.Contains(card))
+            {
+                Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
+                Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1);
+                Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1);
+                draggedCard.Image.Drop -= StockAndTalonCard_Drop;
+                draggedCard.Image.MouseDown -= OnStockClick;
+                draggedCard.Image.Drop += TableauCard_Drop;
+            }
+        }
+        draggedCard = null;
+    }
+
+    private void OnStockClick(object sender, RoutedEventArgs e)
+    {
+        if (solitaire.Stock.Cards.Count > 0)
+        {
+            Card card = solitaire.Stock.Draw();
+            card.FaceDown = false;
+            Grid.SetColumn(card.Image, 0);
+            Grid.SetRow(card.Image, 2);
+            Grid.SetZIndex(card.Image, tableauGrid.Children.Count);
+            Grid.SetRowSpan(card.Image, 3);
+            stockAndTalonGrid.Children.Remove(card.Image);
+            talonGrid.Children.Add(card.Image);
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (solitaire.Talon.Cards.Count > i)
+                {
+                    Grid.SetRow(solitaire.Talon.GetCard(0).Image, 1);
+                    Grid.SetRow(solitaire.Talon.GetCard(1).Image, 0);
+                }
+            }
+            
+        }
     }
 
     private void BringToFront(Grid grid, Image image)

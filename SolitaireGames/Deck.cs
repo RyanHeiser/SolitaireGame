@@ -16,26 +16,29 @@ namespace SolitaireGames
 
         public void ResetDeck()
         {
+            Cards.Clear();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 13; j++)
                 {
+                    Card card;
                     if (i == 0)
                     {
-                        AddCard(new Card(CardSuit.Hearts, (CardValue) j));
+                        card = new Card(CardSuit.Hearts, (CardValue)j);
                     }
                     else if (i == 1)
                     {
-                        AddCard(new Card(CardSuit.Diamonds, (CardValue)j));
+                        card = new Card(CardSuit.Diamonds, (CardValue)j);
                     }
                     else if (i == 2)
                     {
-                        AddCard(new Card(CardSuit.Clubs, (CardValue) j));
+                        card = new Card(CardSuit.Clubs, (CardValue) j);
                     }
                     else
                     {
-                        AddCard(new Card(CardSuit.Spades, (CardValue) j));
+                        card = new Card(CardSuit.Spades, (CardValue)j);
                     }
+                    AddCard(card);
                 }
             }
         }

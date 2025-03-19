@@ -33,15 +33,13 @@ namespace SolitaireGames
             if (movedIndex > 0)
             {
                 pile.GetCard(movedIndex - 1).FaceDown = false;
+                pile.GetCard(movedIndex - 1).Image.AllowDrop = true;
             }
             Pile newPile = GetPile(movedTo);
             newPile.AddCard(moved, newPile.GetIndexOfCard(movedTo) + 1);
             pile.RemoveCard(moved);
+            movedTo.Image.AllowDrop = false;
 
-            if (moved.FaceDown)
-            {
-                moved.FaceDown = false;
-            }
         }
 
         public Boolean Contains(Card c)

@@ -132,7 +132,6 @@ namespace SolitaireGames
                 {
                     _faceDown = false;
                     Image.Source = _bitmapImage;
-                    Image.AllowDrop = true;
                 }
             }
         }
