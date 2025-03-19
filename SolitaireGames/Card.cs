@@ -16,7 +16,7 @@ namespace SolitaireGames
         private SolitaireGames.CardSuit _suit;
         private SolitaireGames.CardValue _value;
         private Boolean _faceDown;
-        private Boolean _dragging;
+        private Boolean _draggable;
         private Image _image;
         private BitmapImage _bitmapImage;
         private BitmapImage _faceDownBitmapImage;
@@ -25,6 +25,7 @@ namespace SolitaireGames
         {
             this.Suit = suit;
             this.Value = value;
+            Draggable = false;
 
             UpdateColor();
             SetupImage();
@@ -136,6 +137,6 @@ namespace SolitaireGames
             }
         }
         public Image Image { get => _image; set => _image = value; }
-        public bool Dragging { get => _dragging; set => _dragging = value; }
+        public bool Draggable { get => _draggable; set => _draggable = value; }
     }
 }

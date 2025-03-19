@@ -34,6 +34,7 @@ namespace SolitaireGames
             {
                 pile.GetCard(movedIndex - 1).FaceDown = false;
                 pile.GetCard(movedIndex - 1).Image.AllowDrop = true;
+                pile.GetCard(movedIndex - 1).Draggable = true;
             }
             Pile newPile = GetPile(movedTo);
             newPile.AddCard(moved, newPile.GetIndexOfCard(movedTo) + 1);

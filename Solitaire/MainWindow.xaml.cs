@@ -40,9 +40,10 @@ public partial class MainWindow : Window
                 Image image = pile.Cards[j].Image;
                 image.MouseMove += Card_MouseMove;
                 image.Drop += TableauCard_Drop;
+                //image.Drop += StockAndTalonCard_Drop;
                 Grid.SetColumn(image, i);
                 Grid.SetRow(image, j);
-                Grid.SetRowSpan(image, 2);
+                Grid.SetRowSpan(image, 3);
                 Grid.SetZIndex(image, j);
                 tableauGrid.Children.Add(image);
 
@@ -56,7 +57,8 @@ public partial class MainWindow : Window
         {
             Image image = solitaire.Stock.Cards[i].Image;
             image.MouseMove += Card_MouseMove;
-            image.Drop += StockAndTalonCard_Drop;
+            //image.Drop += StockAndTalonCard_Drop;
+            image.Drop += TableauCard_Drop;
             image.MouseDown += OnStockClick;
             Grid.SetColumn(image, 0);
             Grid.SetRow(image, 0);
@@ -77,9 +79,9 @@ public partial class MainWindow : Window
         Image image = (Image)sender;
         Card card = (Card)image.Tag;
 
-        if (e.LeftButton == MouseButtonState.Pressed && !card.FaceDown)
+
+        if (e.LeftButton == MouseButtonState.Pressed && card.Draggable)
         {
-            System.Diagnostics.Debug.WriteLine("drop allowed");
             draggedCard = card;
             DragDrop.DoDragDrop(image, image, DragDropEffects.Move);
         }
@@ -93,6 +95,7 @@ public partial class MainWindow : Window
 
         if (image.AllowDrop && card != draggedCard)
         {
+            // the dragged card and target card are in the tableau
             if (solitaire.Tableau.Contains(draggedCard) && solitaire.Tableau.Contains(card))
             {
                 Pile pile = solitaire.Tableau.GetPile(draggedCard);
@@ -104,44 +107,57 @@ public partial class MainWindow : Window
                     Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1 + j);
                     Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1 + j);
                     solitaire.Tableau.MoveCard(draggedCard, card);
-                    if (Grid.GetRow(draggedCard.Image) + 1 >= tableauGrid.RowDefinitions.Count)
+                    if (Grid.GetRow(draggedCard.Image) >= tableauGrid.RowDefinitions.Count - 3)
                     {
                         System.Diagnostics.Debug.WriteLine("adding row");
                         AddTableauRow();
                     }
+
+                    // sets target card to the dragged card and dragged card to the next card in its former pile
                     if (pile.Cards.Count > draggedCardIndex)
                     {
                         card = draggedCard;
                         draggedCard = pile.GetCard(draggedCardIndex);
-                    } 
+                    }
                     else
                     {
                         break;
                     }
 
-                        j++;
+                    j++;
                 }
             }
-           
-        }
-        draggedCard = null;
-    }
-
-    private void StockAndTalonCard_Drop(object sender, EventArgs e)
-    {
-        Image image = (Image)sender;
-        Card card = (Card)image.Tag;
-
-        if (image.AllowDrop && card != draggedCard)
-        {
-            if (solitaire.Tableau.Contains(card))
+            // the dragged card is in the talon
+            else if (solitaire.Talon.Cards.Contains(draggedCard))
             {
-                Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
-                Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1);
-                Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1);
-                draggedCard.Image.Drop -= StockAndTalonCard_Drop;
-                draggedCard.Image.MouseDown -= OnStockClick;
-                draggedCard.Image.Drop += TableauCard_Drop;
+                if (image.AllowDrop && card != draggedCard)
+                {
+                    if (solitaire.Tableau.Contains(card))
+                    {
+                        Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
+                        Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1);
+                        Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1);
+                        talonGrid.Children.Remove(draggedCard.Image);
+                        tableauGrid.Children.Add(draggedCard.Image);
+                        //draggedCard.Image.Drop -= StockAndTalonCard_Drop;
+                        draggedCard.Image.MouseDown -= OnStockClick;
+                        //draggedCard.Image.Drop += TableauCard_Drop;
+
+                        for (int i = 1; i < 3; i++)
+                        {
+                            if (solitaire.Talon.GetCard(i) == null)
+                            {
+                                break;
+                            }
+                            if (i == 1)
+                            {
+                                solitaire.Talon.GetCard(i).Draggable = true;
+                            }
+                            Grid.SetRow(solitaire.Talon.GetCard(i).Image, 3 - i);
+                        }
+                        solitaire.MoveFromPileToTableau(solitaire.Talon, draggedCard, card);
+                    }
+                }
             }
         }
         draggedCard = null;
@@ -159,13 +175,19 @@ public partial class MainWindow : Window
             Grid.SetRowSpan(card.Image, 3);
             stockAndTalonGrid.Children.Remove(card.Image);
             talonGrid.Children.Add(card.Image);
+            solitaire.Talon.AddCard(card);
+            card.Image.MouseDown -= OnStockClick;
+            card.Draggable = true;
 
-            for (int i = 0; i < 2; i++)
+            //TODO: only allow dragging top card of talon. Will have to change Card_MouseMove to check if card can be dragged
+
+            for (int i = 1; i <= 2; i++)
             {
                 if (solitaire.Talon.Cards.Count > i)
                 {
-                    Grid.SetRow(solitaire.Talon.GetCard(0).Image, 1);
-                    Grid.SetRow(solitaire.Talon.GetCard(1).Image, 0);
+                    Grid.SetRow(solitaire.Talon.GetCard(i).Image, 2 - i);
+                    solitaire.Talon.GetCard(i).Image.AllowDrop = false;
+                    solitaire.Talon.GetCard(i).Draggable = false;
                 }
             }
             

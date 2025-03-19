@@ -34,6 +34,7 @@ namespace SolitaireGames
                     {
                         card.FaceDown = false;
                         card.Image.AllowDrop = true;
+                        card.Draggable = true;
                     }
                 }
                 Tableau.SetPile(newPile, i);
@@ -42,10 +43,10 @@ namespace SolitaireGames
 
         private void SetUpStock()
         {
-            for (int i = 0; i < Deck.Cards.Count; i++)
+            while(Deck.Cards.Count > 0)
             {
                 Card card = Deck.Draw();
-                Stock.AddCard(card, i);
+                Stock.AddCard(card);
             }
         }
 
@@ -54,6 +55,7 @@ namespace SolitaireGames
             pile.RemoveCard(moved);
             Pile newPile = Tableau.GetPile(movedTo);
             newPile.AddCard(moved, newPile.GetIndexOfCard(movedTo) + 1);
+            moved.Image.AllowDrop = true;
             movedTo.Image.AllowDrop = false;
         }
 
