@@ -32,10 +32,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image Name="heartsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/heart_foundation.png" Grid.Row="0" Margin="5"></Image>
-            <Image Name="diamondsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/diamond_foundation.png" Grid.Row="1" Margin="5"></Image>
-            <Image Name="clubsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/club_foundation.png" Grid.Row="2" Margin="5"></Image>
-            <Image Name="spadesFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/spade_foundation.png" Grid.Row="3" Margin="5"></Image>
+            <Image Name="heartsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_hearts.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="0" Margin="5"></Image>
+            <Image Name="diamondsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_diamonds.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="1" Margin="5"></Image>
+            <Image Name="clubsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_clubs.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="2" Margin="5"></Image>
+            <Image Name="spadesFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_spades.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="3" Margin="5"></Image>
         </Grid>
         <Grid Name="tableauGrid" AllowDrop="True" ShowGridLines="True" Margin="10">
             <Grid.ColumnDefinitions>

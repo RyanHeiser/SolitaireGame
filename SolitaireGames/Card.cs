@@ -78,6 +78,9 @@ namespace SolitaireGames
             else if ((int)Value == 12)
             {
                 return "king";
+            } else if ((int)Value == 13)
+            {
+                return "foundation";
             }
             else
             {

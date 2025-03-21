@@ -31,6 +31,11 @@ namespace SolitaireGames
             }
         }
 
+        public Boolean Contains(Card card)
+        {
+            return Cards.Contains(card);
+        }
+
         public int GetIndexOfCard(Card card)
         {
             return Cards.IndexOf(card);
@@ -45,6 +50,7 @@ namespace SolitaireGames
 
         public void AddCard(Card card, int index = 0)
         {
+            System.Diagnostics.Debug.WriteLine(index);
             Cards.Insert(index, card);
         }
 

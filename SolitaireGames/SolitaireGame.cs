@@ -10,6 +10,7 @@ namespace SolitaireGames
     {
         private Tableau tableau = new Tableau();
         private Deck deck = new Deck();
+        private Foundation foundation = new Foundation();
         private Pile stock = new Pile();
         private Pile talon = new Pile();
 
@@ -59,10 +60,24 @@ namespace SolitaireGames
             movedTo.Image.AllowDrop = false;
         }
 
+        public void MoveFromTableauToPile(Pile pile, Card moved, Card movedTo)
+        {
+            Pile oldPile = Tableau.GetPile(moved);
+            if (oldPile.Cards.Count > 1) {
+                Card card = oldPile.GetCard(oldPile.GetIndexOfCard(moved) - 1);
+                card.Image.AllowDrop = true;
+                card.FaceDown = false;
+                card.Draggable = true;
+            }
+            oldPile.RemoveCard(moved);
+            pile.AddCard(moved, pile.GetIndexOfCard(movedTo));
+        }
+
 
         public Tableau Tableau { get => tableau; set => tableau = value; }
         public Deck Deck { get => deck; set => deck = value; }
         public Pile Stock { get => stock; set => stock = value; }
         public Pile Talon { get => talon; set => talon = value; }
+        public Foundation Foundation { get => foundation; set => foundation = value; }
     }
 }

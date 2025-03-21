@@ -6,41 +6,71 @@ using System.Threading.Tasks;
 
 namespace SolitaireGames
 {
-    class Foundation
+    public class Foundation
     {
-        private List<Card> hearts = new List<Card>();
-        private List<Card> diamonds = new List<Card>();
-        private List<Card> clubs = new List<Card>();
-        private List<Card> spades = new List<Card>();
+        private Pile hearts = new Pile();
+        private Pile diamonds = new Pile();
+        private Pile clubs = new Pile();
+        private Pile spades = new Pile();
+
+        const int MAX_CARDS = 14;
 
         public Foundation()
         {
+            hearts.AddCard(new Card(CardSuit.Hearts, CardValue.Null));
+            diamonds.AddCard(new Card(CardSuit.Diamonds, CardValue.Null));
+            clubs.AddCard(new Card(CardSuit.Clubs, CardValue.Null));
+            spades.AddCard(new Card(CardSuit.Spades, CardValue.Null));
 
         }
 
-        public void AddToHearts(Card card)
+        public Boolean Full()
         {
-            hearts.Add(card);
+            return hearts.Cards.Count == MAX_CARDS && diamonds.Cards.Count == MAX_CARDS && clubs.Cards.Count == MAX_CARDS && spades.Cards.Count == MAX_CARDS;
         }
 
-        public void AddToDiamonds(Card card)
+        public Boolean Contains(Card card)
         {
-            diamonds.Add(card);
+            return hearts.Cards.Contains(card) || diamonds.Cards.Contains(card) || clubs.Cards.Contains(card) || spades.Cards.Contains(card);
         }
 
-        public void AddToClubs(Card card)
+        public Pile GetPile(Card card)
         {
-            clubs.Add(card);
+            if (hearts.Cards.Contains(card))
+            {
+                return Hearts;
+            }
+            else if (diamonds.Cards.Contains(card))
+            {
+                return Diamonds;
+            }
+            else if (clubs.Cards.Contains(card))
+            {
+                return Clubs;
+            }
+            else if (spades.Cards.Contains(card))
+            {
+                return Spades;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public void AddToSpades(Card card)
+        public List<Pile> GetPiles()
         {
-            spades.Add(card);
+            List<Pile> piles = new List<Pile>();
+            piles.Add(hearts);
+            piles.Add(diamonds);
+            piles.Add(clubs);
+            piles.Add(spades);
+            return piles;
         }
 
-        public List<Card> Hearts { get => hearts; set => hearts = value; }
-        public List<Card> Diamonds { get => diamonds; set => diamonds = value; }
-        public List<Card> Clubs { get => clubs; set => clubs = value; }
-        public List<Card> Spades { get => spades; set => spades = value; }
+        public Pile Hearts { get => hearts; set => hearts = value; }
+        public Pile Diamonds { get => diamonds; set => diamonds = value; }
+        public Pile Clubs { get => clubs; set => clubs = value; }
+        public Pile Spades { get => spades; set => spades = value; }
     }
 }

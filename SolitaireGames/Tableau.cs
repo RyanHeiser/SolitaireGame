@@ -43,6 +43,19 @@ namespace SolitaireGames
 
         }
 
+        public int GetMaxPileSize()
+        {
+            int max = 0;
+            for (int i = 0; i < NumPiles; i++)
+            {
+                if (Piles[i].Cards.Count > max)
+                {
+                    max = Piles[i].Cards.Count;
+                }
+            }
+            return max;
+        }
+
         public Boolean Contains(Card c)
         {
             for (int i = 0; i < NumPiles; i++)
