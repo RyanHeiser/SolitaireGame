@@ -37,10 +37,26 @@ namespace SolitaireGames
                 pile.GetCard(movedIndex - 1).Draggable = true;
             }
             Pile newPile = GetPile(movedTo);
+            System.Diagnostics.Debug.WriteLine(movedTo.Value);
             newPile.AddCard(moved, newPile.GetIndexOfCard(movedTo) + 1);
             pile.RemoveCard(moved);
             movedTo.Image.AllowDrop = false;
 
+        }
+
+        public void MoveCard(Card moved, int columnIndex)
+        {
+            Pile pile = GetPile(moved);
+            int movedIndex = pile.GetIndexOfCard(moved);
+            if (movedIndex > 0)
+            {
+                pile.GetCard(movedIndex - 1).FaceDown = false;
+                pile.GetCard(movedIndex - 1).Image.AllowDrop = true;
+                pile.GetCard(movedIndex - 1).Draggable = true;
+            }
+            Pile newPile = Piles[columnIndex];
+            newPile.AddCard(moved, newPile.Cards.Count);
+            pile.RemoveCard(moved);
         }
 
         public int GetMaxPileSize()

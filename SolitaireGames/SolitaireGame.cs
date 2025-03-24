@@ -60,6 +60,20 @@ namespace SolitaireGames
             movedTo.Image.AllowDrop = false;
         }
 
+        public void MoveFromPileToTableau(Pile pile, Card moved, int columnIndex)
+        {
+            pile.RemoveCard(moved);
+            Pile newPile = Tableau.Piles[columnIndex];
+            if (newPile.Cards.Count > 0)
+            {
+                newPile.AddCard(moved, newPile.Cards.Count - 1);
+            } else
+            {
+                newPile.AddCard(moved, 0);
+            }
+            moved.Image.AllowDrop = true;
+        }
+
         public void MoveFromTableauToPile(Pile pile, Card moved, Card movedTo)
         {
             Pile oldPile = Tableau.GetPile(moved);
