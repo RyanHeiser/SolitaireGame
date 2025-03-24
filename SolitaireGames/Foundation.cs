@@ -17,11 +17,7 @@ namespace SolitaireGames
 
         public Foundation()
         {
-            hearts.AddCard(new Card(CardSuit.Hearts, CardValue.Null));
-            diamonds.AddCard(new Card(CardSuit.Diamonds, CardValue.Null));
-            clubs.AddCard(new Card(CardSuit.Clubs, CardValue.Null));
-            spades.AddCard(new Card(CardSuit.Spades, CardValue.Null));
-
+            AddSuitIcons();
         }
 
         public Boolean Full()
@@ -66,6 +62,22 @@ namespace SolitaireGames
             piles.Add(clubs);
             piles.Add(spades);
             return piles;
+        }
+
+        public void Clear()
+        {
+            hearts.Clear();
+            diamonds.Clear();
+            clubs.Clear();
+            spades.Clear();
+        }
+
+        public void AddSuitIcons()
+        {
+            hearts.AddCard(new Card(CardSuit.Hearts, CardValue.Null));
+            diamonds.AddCard(new Card(CardSuit.Diamonds, CardValue.Null));
+            clubs.AddCard(new Card(CardSuit.Clubs, CardValue.Null));
+            spades.AddCard(new Card(CardSuit.Spades, CardValue.Null));
         }
 
         public Pile Hearts { get => hearts; set => hearts = value; }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Solitaire"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Solitaire" Height="675" Width="1200" WindowStartupLocation="CenterScreen">
     <DockPanel Name="playingArea">
         <Grid Name="stockAndTalonGrid" ShowGridLines="True" DockPanel.Dock="Left" Margin="10" AllowDrop="True">
             <Grid.RowDefinitions>

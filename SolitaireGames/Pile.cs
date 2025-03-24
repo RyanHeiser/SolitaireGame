@@ -59,6 +59,11 @@ namespace SolitaireGames
             Cards.Remove(card);
         }
 
+        public void Clear()
+        {
+            Cards.Clear();
+        }
+
         public ObservableCollection<Card> Cards { get => _cards; set => _cards = value; }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -97,7 +98,7 @@ public partial class MainWindow : Window
 
     private void TryRemoveTableauRow(Card card)
     {
-        if (Grid.GetRow(card.Image) >= solitaire.Tableau.GetMaxPileSize() - 1)
+        if (Grid.GetRow(card.Image) >= solitaire.Tableau.GetMaxPileSize() - 1 && Grid.GetRow(card.Image) > 11)
         {
             System.Diagnostics.Debug.WriteLine("removing row");
             tableauGrid.RowDefinitions.RemoveAt(tableauGrid.RowDefinitions.Count - 1);
@@ -159,7 +160,7 @@ public partial class MainWindow : Window
                     Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1 + j);
                     solitaire.Tableau.MoveCard(draggedCard, card);
                     TryAddTableauRow(draggedCard);
-                   
+                    TryRemoveTableauRow(draggedCard);
 
                     // sets target card to the dragged card and dragged card to the next card in its former pile
                     if (pile.Cards.Count > draggedCardIndex)
@@ -266,6 +267,7 @@ public partial class MainWindow : Window
                     Grid.SetRow(draggedCard.Image, j);
                     Grid.SetZIndex(draggedCard.Image, j);
                     TryAddTableauRow(draggedCard);
+                    TryRemoveTableauRow(draggedCard);
 
                     if (j == 0)
                     {
@@ -273,7 +275,6 @@ public partial class MainWindow : Window
                     } 
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("j: " + j);
                         solitaire.Tableau.MoveCard(draggedCard, solitaire.Tableau.Piles[columnIndex].GetCard(j-1));
                     }
 
@@ -381,6 +382,12 @@ public partial class MainWindow : Window
                 solitaire.Talon.RemoveCard(draggedCard);
             }
         }
+
+        if (solitaire.Foundation.Full())
+        {
+            WinWindow winWindow = new WinWindow(this);
+            winWindow.Show();
+        }
         draggedCard = null;
     }
 
@@ -443,6 +450,27 @@ public partial class MainWindow : Window
         }
         solitaire.Talon.Cards.Clear();
         resetStockButton.Visibility = Visibility.Hidden;
+    }
+
+    public void ResetGame()
+    {
+        System.Diagnostics.Debug.WriteLine("resetting game");
+        tableauGrid.Children.Clear();
+        foundationGrid.Children.Clear();
+        talonGrid.Children.Clear();
+        
+        for (int i = 0; i < stockAndTalonGrid.Children.Count - 2; i++)
+        {
+            if (stockAndTalonGrid.Children[i] is Image)
+            {
+                stockAndTalonGrid.Children.RemoveAt(i);
+            }
+        }
+
+        solitaire.RestartGame();
+        DisplayTableau();
+        DisplayStock();
+        DisplayFoundation();
     }
 
     private void BringToFront(Grid grid, Image image)

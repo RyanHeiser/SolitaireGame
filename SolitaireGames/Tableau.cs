@@ -96,6 +96,14 @@ namespace SolitaireGames
             return null;
         }
 
+        public void Clear()
+        {
+            for (int i = 0; i < NumPiles; i++)
+            {
+                Piles[i].Clear();
+            }
+        }
+
         public Pile[] Piles { get => piles; set => piles = value; }
 
         public static int NumPiles => numPiles;

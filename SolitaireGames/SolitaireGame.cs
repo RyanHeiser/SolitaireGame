@@ -20,7 +20,20 @@ namespace SolitaireGames
             SetUpStock();
         }
 
-       
+        public void RestartGame()
+        {
+            Tableau.Clear();
+            Foundation.Clear();
+            Foundation.AddSuitIcons();
+            Stock.Clear();
+            Talon.Clear();
+
+            Deck.ResetDeck();
+            Deck.Shuffle();
+
+            SetUpTableau();
+            SetUpStock();
+        }
 
         private void SetUpTableau()
         {
