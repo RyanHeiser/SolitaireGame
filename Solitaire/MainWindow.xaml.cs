@@ -222,6 +222,12 @@ public partial class MainWindow : Window
         Image image = (Image)sender;
         Card card = (Card)image.Tag;
 
+        // return if the dragged card is not equal to the target card suit or if the dragged card value is not one more than the target card value
+        if (draggedCard.Suit != card.Suit || (draggedCard.Value != CardValue.Ace && draggedCard.Value != card.Value + 1))
+        {
+            return;
+        }
+
         Pile draggedPile;
 
         if (solitaire.Tableau.GetPile(draggedCard) != null)
