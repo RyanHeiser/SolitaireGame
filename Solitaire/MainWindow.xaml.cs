@@ -138,6 +138,12 @@ public partial class MainWindow : Window
         Image image = (Image)sender;
         Card card = (Card)image.Tag;
 
+        // return if the dragged card is of the same color as the target card or if the dragged card is not one less than the target card
+        if (draggedCard.Color == card.Color || draggedCard.Value != card.Value - 1)
+        {
+            return;
+        }
+
         if (image.AllowDrop && card != draggedCard)
         {
             // the dragged card and target card are in the tableau
