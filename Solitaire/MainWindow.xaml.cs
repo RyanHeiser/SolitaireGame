@@ -23,7 +23,9 @@ public partial class MainWindow : Window
 {
     SolitaireGame solitaire = new SolitaireGame();
     Card draggedCard;
-    private Boolean mouseDownOverEmpty = false;
+    private int seconds = 0;
+    private int minutes = 0;
+    System.Timers.Timer timer = new System.Timers.Timer();
 
     public MainWindow()
     {
@@ -31,6 +33,7 @@ public partial class MainWindow : Window
         DisplayTableau();
         DisplayStock();
         DisplayFoundation();
+        StartTimer();
     }
 
     private void DisplayTableau()
@@ -82,6 +85,30 @@ public partial class MainWindow : Window
             card.Image.MouseDown += Card_MouseDown;
             System.Diagnostics.Debug.WriteLine(card.Image.Source);
         }
+    }
+
+    private void StartTimer()
+    {
+        timer.Interval = 1000;
+        timer.Elapsed += Timer_Elapsed;
+        timer.Start();
+    }
+
+    private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        if (seconds < 59)
+        {
+            seconds++;
+        }
+        else
+        {
+            seconds = 0;
+            minutes++;
+        }
+        timerText.Dispatcher.Invoke(new Action(() =>
+        {
+            timerText.Text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        }));
     }
 
     private void TryAddTableauRow(Card card)
@@ -385,6 +412,7 @@ public partial class MainWindow : Window
 
         if (solitaire.Foundation.Full())
         {
+            timer.Stop();
             WinWindow winWindow = new WinWindow(this);
             winWindow.Show();
         }
@@ -477,18 +505,12 @@ public partial class MainWindow : Window
             }
         }
 
-        //for (int i = 0; i < stockAndTalonGrid.Children.Count - 2; i++)
-        //{
-        //    if (stockAndTalonGrid.Children[i] is Image)
-        //    {
-        //        stockAndTalonGrid.Children.RemoveAt(i);
-        //        i--;
-        //    }
-        //}
-
         solitaire.RestartGame();
         DisplayTableau();
         DisplayStock();
         DisplayFoundation();
+        seconds = 0;
+        minutes = 0;
+        timer.Start();
     }
 }
