@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="Solitaire" Height="675" Width="1200" WindowStartupLocation="CenterScreen">
     <DockPanel Name="playingArea">
+        <StackPanel Name="topPanel" DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBlock Name="timer" Text="00:00" FontSize="24" Margin="5" />
+            <TextBlock Name="moves" Text="Moves: 0" FontSize="24" Margin="5" />
+            <Button Name="resetButton" Content="Reset" FontSize="16" Click="ResetButton_Click" Width="75" Margin="5" />
+        </StackPanel>
         <Grid Name="stockAndTalonGrid" ShowGridLines="True" DockPanel.Dock="Left" Margin="10" AllowDrop="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height = "*" />

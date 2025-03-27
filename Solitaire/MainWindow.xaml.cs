@@ -452,6 +452,11 @@ public partial class MainWindow : Window
         resetStockButton.Visibility = Visibility.Hidden;
     }
 
+    private void ResetButton_Click(object sender, EventArgs e)
+    {
+        ResetGame();
+    }
+
     public void ResetGame()
     {
         System.Diagnostics.Debug.WriteLine("resetting game");
@@ -471,27 +476,5 @@ public partial class MainWindow : Window
         DisplayTableau();
         DisplayStock();
         DisplayFoundation();
-    }
-
-    private void BringToFront(Grid grid, Image image)
-    {
-        int currIndex = Grid.GetZIndex(image);
-        int zIndex = 0;
-        int maxZIndex = 0;
-        Image otherImage;
-        for (int i = 0; i < grid.Children.Count; i++)
-        {
-            if (grid.Children[i] is Image && grid.Children[i] != image && Grid.GetColumn(grid.Children[i]) == Grid.GetColumn(image))
-            {
-                otherImage = (Image)grid.Children[i];
-                zIndex = Grid.GetZIndex(otherImage);
-                maxZIndex = Math.Max(maxZIndex, zIndex);
-                if (zIndex >= currIndex)
-                {
-                    Grid.SetZIndex(otherImage, zIndex - 1);
-                }
-            }
-        }
-        Grid.SetZIndex(image, maxZIndex);
     }
 }
