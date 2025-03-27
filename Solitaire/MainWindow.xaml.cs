@@ -138,7 +138,9 @@ public partial class MainWindow : Window
 
     private void TryRemoveTableauRow(Card card)
     {
-        if (Grid.GetRow(card.Image) >= solitaire.Tableau.GetMaxPileSize() - 1 && Grid.GetRow(card.Image) > 11)
+        System.Diagnostics.Debug.WriteLine("dragged card row: " + Grid.GetRow(card.Image));
+        System.Diagnostics.Debug.WriteLine("tableau max pile size - 1: " + (solitaire.Tableau.GetMaxPileSize() - 1));
+        if (Grid.GetRow(card.Image) >= solitaire.Tableau.GetMaxPileSize() - 1 && Grid.GetRow(card.Image) > 8)
         {
             System.Diagnostics.Debug.WriteLine("removing row");
             tableauGrid.RowDefinitions.RemoveAt(tableauGrid.RowDefinitions.Count - 1);
@@ -195,10 +197,10 @@ public partial class MainWindow : Window
                 int j = 0;
                 while (draggedCardIndex < pile.Cards.Count)
                 {
+                    TryRemoveTableauRow(draggedCard);
                     Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
                     Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1 + j);
                     Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1 + j);
-                    TryRemoveTableauRow(draggedCard);
                     solitaire.Tableau.MoveCard(draggedCard, card);
                     TryAddTableauRow(draggedCard);
 
@@ -297,10 +299,10 @@ public partial class MainWindow : Window
                 int j = 0;
                 while (draggedCardIndex < pile.Cards.Count)
                 {
+                    TryRemoveTableauRow(draggedCard);
                     Grid.SetColumn(draggedCard.Image, columnIndex);
                     Grid.SetRow(draggedCard.Image, j);
                     Grid.SetZIndex(draggedCard.Image, j);
-                    TryRemoveTableauRow(draggedCard);
 
                     if (j == 0)
                     {
@@ -383,6 +385,7 @@ public partial class MainWindow : Window
             // the dragged card is from the tableau
             if (solitaire.Tableau.Contains(draggedCard))
             {
+                TryRemoveTableauRow(draggedCard);
                 Grid.SetRowSpan(draggedCard.Image, 1);
                 Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
                 Grid.SetRow(draggedCard.Image, Grid.GetRow(image));
@@ -392,7 +395,6 @@ public partial class MainWindow : Window
                 draggedCard.Image.Drop += FoundationCard_Drop;
                 draggedCard.Image.Drop -= TableauCard_Drop;
                 draggedCard.Image.Margin = new System.Windows.Thickness(5);
-                TryRemoveTableauRow(draggedCard);
                 
                 solitaire.MoveFromTableauToPile(solitaire.Foundation.GetPile(card), draggedCard, card);
             } 
