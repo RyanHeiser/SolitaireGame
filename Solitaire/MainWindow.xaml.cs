@@ -26,6 +26,7 @@ public partial class MainWindow : Window
     private int seconds = 0;
     private int minutes = 0;
     System.Timers.Timer timer = new System.Timers.Timer();
+    private int moves = 0;
 
     public MainWindow()
     {
@@ -111,6 +112,18 @@ public partial class MainWindow : Window
         }));
     }
 
+    private void IncrementMoves()
+    {
+        moves++;
+        movesText.Text = "Moves: " + moves;
+    }
+
+    private void ResetMoves()
+    {
+        moves = 0;
+        movesText.Text = "Moves: " + moves;
+    }
+
     private void TryAddTableauRow(Card card)
     {
         if (Grid.GetRow(card.Image) >= tableauGrid.RowDefinitions.Count - 3)
@@ -171,7 +184,7 @@ public partial class MainWindow : Window
         {
             return;
         }
-
+        // the target card can be dropped on and is not itself
         if (image.AllowDrop && card != draggedCard)
         {
             // the dragged card and target card are in the tableau
@@ -241,6 +254,7 @@ public partial class MainWindow : Window
                     solitaire.MoveFromPileToTableau(solitaire.Foundation.GetPile(draggedCard), draggedCard, card);
                 }
             }
+            IncrementMoves();
         }
         draggedCard = null;
     }
@@ -272,16 +286,9 @@ public partial class MainWindow : Window
             return;
         }
 
-        System.Diagnostics.Debug.WriteLine("is king");
-
-        System.Diagnostics.Debug.WriteLine(grid.AllowDrop);
-        System.Diagnostics.Debug.WriteLine(solitaire.Tableau.Piles[columnIndex].Cards.Count < 1);
-        System.Diagnostics.Debug.WriteLine("colindex: " + columnIndex);
-
-
+        // the tableau column is empty
         if (grid.AllowDrop && solitaire.Tableau.Piles[columnIndex].Cards.Count < 1)
         {
-            System.Diagnostics.Debug.WriteLine("empty column");
             // the dragged card is in the tableau
             if (solitaire.Tableau.Contains(draggedCard))
             {
@@ -344,6 +351,7 @@ public partial class MainWindow : Window
                 TryAddTableauRow(draggedCard);
                 solitaire.MoveFromPileToTableau(solitaire.Foundation.GetPile(draggedCard), draggedCard, columnIndex);
             }
+            IncrementMoves();
         }
         draggedCard = null;
     }
@@ -369,11 +377,9 @@ public partial class MainWindow : Window
             draggedPile = solitaire.Talon;
         }
 
-            System.Diagnostics.Debug.WriteLine("foundation drop");
-
+        // dragged card is not the target card and the dragged card is either from the talon or if from the tableau it is the bottom card in its pile
         if (image.AllowDrop && card != draggedCard && (draggedPile == solitaire.Talon || draggedPile.GetIndexOfCard(draggedCard) == draggedPile.Cards.Count - 1))
         {
-            System.Diagnostics.Debug.WriteLine("drop allowed");
             // the dragged card is from the tableau
             if (solitaire.Tableau.Contains(draggedCard))
             {
@@ -408,6 +414,7 @@ public partial class MainWindow : Window
                 solitaire.Foundation.GetPile(card).AddCard(draggedCard);
                 solitaire.Talon.RemoveCard(draggedCard);
             }
+            IncrementMoves();
         }
 
         if (solitaire.Foundation.Full())
@@ -424,7 +431,6 @@ public partial class MainWindow : Window
         System.Diagnostics.Debug.WriteLine("stock click");
         if (solitaire.Stock.Cards.Count > 0)
         {
-            System.Diagnostics.Debug.WriteLine("more than 0");
             Card card = solitaire.Stock.Draw();
             card.FaceDown = false;
             Grid.SetColumn(card.Image, 0);
@@ -451,7 +457,7 @@ public partial class MainWindow : Window
             {
                 resetStockButton.Visibility = Visibility.Visible;
             }
-
+            IncrementMoves();
         }
     }
 
@@ -478,6 +484,7 @@ public partial class MainWindow : Window
         }
         solitaire.Talon.Cards.Clear();
         resetStockButton.Visibility = Visibility.Hidden;
+        IncrementMoves();
     }
 
     private void ResetButton_Click(object sender, EventArgs e)
@@ -511,6 +518,7 @@ public partial class MainWindow : Window
         DisplayFoundation();
         seconds = 0;
         minutes = 0;
+        ResetMoves();
         timer.Start();
     }
 }
