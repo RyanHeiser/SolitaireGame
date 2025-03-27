@@ -463,14 +463,28 @@ public partial class MainWindow : Window
         tableauGrid.Children.Clear();
         foundationGrid.Children.Clear();
         talonGrid.Children.Clear();
-        
-        for (int i = 0; i < stockAndTalonGrid.Children.Count - 2; i++)
+
+        int i = 0;
+        while (stockAndTalonGrid.Children.Count > 2)
         {
             if (stockAndTalonGrid.Children[i] is Image)
             {
                 stockAndTalonGrid.Children.RemoveAt(i);
             }
+            else
+            {
+                i++;
+            }
         }
+
+        //for (int i = 0; i < stockAndTalonGrid.Children.Count - 2; i++)
+        //{
+        //    if (stockAndTalonGrid.Children[i] is Image)
+        //    {
+        //        stockAndTalonGrid.Children.RemoveAt(i);
+        //        i--;
+        //    }
+        //}
 
         solitaire.RestartGame();
         DisplayTableau();
