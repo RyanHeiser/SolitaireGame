@@ -435,7 +435,7 @@ public partial class MainWindow : Window
             card.FaceDown = false;
             Grid.SetColumn(card.Image, 0);
             Grid.SetRow(card.Image, 2);
-            Grid.SetZIndex(card.Image, tableauGrid.Children.Count);
+            Grid.SetZIndex(card.Image, talonGrid.Children.Count);
             Grid.SetRowSpan(card.Image, 3);
             stockAndTalonGrid.Children.Remove(card.Image);
             talonGrid.Children.Add(card.Image);
