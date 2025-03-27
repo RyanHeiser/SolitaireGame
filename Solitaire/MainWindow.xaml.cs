@@ -198,9 +198,9 @@ public partial class MainWindow : Window
                     Grid.SetColumn(draggedCard.Image, Grid.GetColumn(image));
                     Grid.SetRow(draggedCard.Image, Grid.GetRow(image) + 1 + j);
                     Grid.SetZIndex(draggedCard.Image, Grid.GetZIndex(image) + 1 + j);
+                    TryRemoveTableauRow(draggedCard);
                     solitaire.Tableau.MoveCard(draggedCard, card);
                     TryAddTableauRow(draggedCard);
-                    TryRemoveTableauRow(draggedCard);
 
                     // sets target card to the dragged card and dragged card to the next card in its former pile
                     if (pile.Cards.Count > draggedCardIndex)
@@ -300,7 +300,6 @@ public partial class MainWindow : Window
                     Grid.SetColumn(draggedCard.Image, columnIndex);
                     Grid.SetRow(draggedCard.Image, j);
                     Grid.SetZIndex(draggedCard.Image, j);
-                    TryAddTableauRow(draggedCard);
                     TryRemoveTableauRow(draggedCard);
 
                     if (j == 0)
@@ -312,6 +311,7 @@ public partial class MainWindow : Window
                         solitaire.Tableau.MoveCard(draggedCard, solitaire.Tableau.Piles[columnIndex].GetCard(j-1));
                     }
 
+                    TryAddTableauRow(draggedCard);
                     draggedCard = pile.GetCard(draggedCardIndex);
 
                     j++;
@@ -510,6 +510,11 @@ public partial class MainWindow : Window
             {
                 i++;
             }
+        }
+
+        while (tableauGrid.RowDefinitions.Count > 12)
+        {
+            tableauGrid.RowDefinitions.RemoveAt(tableauGrid.RowDefinitions.Count - 1);
         }
 
         solitaire.RestartGame();
