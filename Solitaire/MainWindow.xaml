@@ -6,20 +6,20 @@
         xmlns:local="clr-namespace:Solitaire"
         mc:Ignorable="d"
         Title="Solitaire" Height="675" Width="1200" WindowStartupLocation="CenterScreen">
-    <DockPanel Name="playingArea">
-        <StackPanel Name="topPanel" DockPanel.Dock="Top" Orientation="Horizontal">
+    <DockPanel Name="playingArea" Background="ForestGreen">
+        <StackPanel Name="topPanel" DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
             <TextBlock Name="timerText" Text="00:00" FontSize="24" Margin="5" />
             <TextBlock Name="movesText" Text="Moves: 0" FontSize="24" Margin="5" />
             <Button Name="resetButton" Content="Reset" FontSize="16" Click="ResetButton_Click" Width="75" Margin="5" />
         </StackPanel>
-        <Grid Name="stockAndTalonGrid" ShowGridLines="True" DockPanel.Dock="Left" Margin="10" AllowDrop="True">
+        <Grid Name="stockAndTalonGrid" DockPanel.Dock="Left" AllowDrop="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height = "*" />
                 <RowDefinition Height = "2*" />
                 <RowDefinition Height = "*" />
             </Grid.RowDefinitions>
             <Button Name="resetStockButton" Grid.Row="0" Visibility="Hidden" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="0" Click="ResetStock_Click" FontSize="36" Content="Reset" />
-            <Grid Name="talonGrid" Grid.Row="1" ShowGridLines="True">
+            <Grid Name="talonGrid" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -30,7 +30,7 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Grid>
-        <Grid Name="foundationGrid" DockPanel.Dock="Right" ShowGridLines="True" Margin="10">
+        <Grid Name="foundationGrid" DockPanel.Dock="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -42,7 +42,7 @@
             <Image Name="clubsFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_clubs.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="2" Margin="5"></Image>
             <Image Name="spadesFoundation" Source="/SolitaireGames;component/Assets/Playing Cards/foundation_of_spades.png" AllowDrop="True" Drop="FoundationCard_Drop" Grid.Row="3" Margin="5"></Image>
         </Grid>
-        <Grid Name="tableauGrid" AllowDrop="True" ShowGridLines="True" Margin="10" Background="Transparent" Drop="TableauGrid_Drop" DragOver="TableauGrid_DragOver">
+        <Grid Name="tableauGrid" AllowDrop="True" Margin="10" Background="Transparent" Drop="TableauGrid_Drop" DragOver="TableauGrid_DragOver">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
