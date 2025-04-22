@@ -32,14 +32,15 @@ namespace SolitaireGames
             FaceDown = true;
         }
 
+        // sets up the image associated with the card
         private void SetupImage()
         {
             Image = new Image();
             Image.Tag = this;
             Image.AllowDrop = false;
 
-            _bitmapImage = new BitmapImage();
-            _faceDownBitmapImage = new BitmapImage();
+            _bitmapImage = new BitmapImage(); // image for if the card is face up
+            _faceDownBitmapImage = new BitmapImage(); // image for if the card is face down
             String _uri = @"/SolitaireGames;component/Assets/Playing Cards/";
 
             // convert the suit to path string
@@ -61,6 +62,7 @@ namespace SolitaireGames
             Image.Source = _faceDownBitmapImage;
         }
 
+        // converts the integer value of a card to the appropriate string value
         private String ValueToString()
         {
             if ((int)Value == 0)
@@ -88,6 +90,7 @@ namespace SolitaireGames
             }
         }
 
+        // converts the suit enum to a string
         private String SuitToString()
         {
             if (Suit == SolitaireGames.CardSuit.Hearts)
@@ -108,8 +111,7 @@ namespace SolitaireGames
             }
         }
 
-        
-
+        // sets the color based on card suit
         private void UpdateColor()
         {
             if (Suit == CardSuit.Hearts || Suit == CardSuit.Diamonds)
@@ -123,6 +125,8 @@ namespace SolitaireGames
         public CardColor Color { get => _color;}
         public CardSuit Suit { get => _suit; set => _suit = value; }
         public CardValue Value { get => _value; set => this._value = value; }
+
+        // sets faceDown to either true or false
         public bool FaceDown 
         { 
             get => _faceDown;

@@ -16,6 +16,7 @@ namespace SolitaireGames
 
         }
 
+        // sets a pile in the tableau at the specified index
         public Boolean SetPile(Pile pile, int index)
         {
             if (index < 0 || index >= piles.Length)
@@ -26,6 +27,7 @@ namespace SolitaireGames
             return true;
         }
 
+        // moves a card to onto a card in the tableau
         public void MoveCard(Card moved, Card movedTo)
         {
             Pile pile = GetPile(moved);
@@ -44,6 +46,7 @@ namespace SolitaireGames
 
         }
 
+        // moves a card to the end of the pile at the specified column index
         public void MoveCard(Card moved, int columnIndex)
         {
             Pile pile = GetPile(moved);
@@ -59,6 +62,7 @@ namespace SolitaireGames
             pile.RemoveCard(moved);
         }
 
+        // gets the size of the largest pile
         public int GetMaxPileSize()
         {
             int max = 0;
@@ -72,6 +76,7 @@ namespace SolitaireGames
             return max;
         }
 
+        // returns true if the tableau contains the card
         public Boolean Contains(Card c)
         {
             for (int i = 0; i < NumPiles; i++)
@@ -84,6 +89,7 @@ namespace SolitaireGames
             return false;
         }
 
+        // returns the pile of the card
         public Pile GetPile(Card c)
         {
             for (int i = 0; i < NumPiles; i++)
@@ -96,6 +102,7 @@ namespace SolitaireGames
             return null;
         }
 
+        // clears the tableau
         public void Clear()
         {
             for (int i = 0; i < NumPiles; i++)

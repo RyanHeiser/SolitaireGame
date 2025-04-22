@@ -20,6 +20,7 @@ namespace SolitaireGames
             this.Cards = cards;
         }
 
+        // returns the card at the specified index
         public Card GetCard(int index)
         {
             if (Cards.Count > index)
@@ -31,16 +32,19 @@ namespace SolitaireGames
             }
         }
 
+        // returns true iff the pile contains the card
         public Boolean Contains(Card card)
         {
             return Cards.Contains(card);
         }
 
+        // returns the index of the card
         public int GetIndexOfCard(Card card)
         {
             return Cards.IndexOf(card);
         }
 
+        // removes and returns the top card in the pile
         public Card Draw()
         {
             Card card = Cards[0];
@@ -48,17 +52,19 @@ namespace SolitaireGames
             return card;
         }
 
+        // adds a card to the bottom of the pile
         public void AddCard(Card card, int index = 0)
         {
-            System.Diagnostics.Debug.WriteLine(index);
             Cards.Insert(index, card);
         }
 
+        // removes a card from the pile
         public void RemoveCard(Card card)
         {
             Cards.Remove(card);
         }
 
+        // clears the pile
         public void Clear()
         {
             Cards.Clear();

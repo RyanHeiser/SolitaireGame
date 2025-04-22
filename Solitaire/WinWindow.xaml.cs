@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace Solitaire
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// This window displays if the player wins
     /// </summary>
     public partial class WinWindow : Window
     {
@@ -26,12 +26,14 @@ namespace Solitaire
             InitializeComponent();
         }
 
+        // listener for if the play again button is clicked
         private void PlayAgain_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.ResetGame();
             this.Close();
         }
 
+        // listener for if the exit button is clicked
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

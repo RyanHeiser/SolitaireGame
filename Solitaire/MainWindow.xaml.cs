@@ -17,7 +17,7 @@ using Image = System.Windows.Controls.Image;
 namespace Solitaire;
 
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// The main window displays the game of solitaire
 /// </summary>
 public partial class MainWindow : Window
 {
@@ -37,6 +37,7 @@ public partial class MainWindow : Window
         StartTimer();
     }
 
+    // displays the cards in the tableau as images and sets up relevant image properties
     private void DisplayTableau()
     {
         for (int i = 0; i < Tableau.NumPiles; i++)
@@ -57,6 +58,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // displays the cards in the stock as images and sets up relevant image properties
     private void DisplayStock()
     {
         for (int i = 0; i < solitaire.Stock.Cards.Count; i++)
@@ -72,6 +74,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // displays the foundations as images and sets up relevant properties
     private void DisplayFoundation()
     {
         for (int i = 0; i < 4; i++)
@@ -88,6 +91,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // starts the game timer
     private void StartTimer()
     {
         timer.Interval = 1000;
@@ -95,17 +99,19 @@ public partial class MainWindow : Window
         timer.Start();
     }
 
+    // updates the timer every second
     private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
-        if (seconds < 59)
+        if (seconds < 59) // increments seconds
         {
             seconds++;
         }
-        else
+        else // increments minutes
         {
             seconds = 0;
             minutes++;
         }
+        // updates timer text control
         timerText.Dispatcher.Invoke(new Action(() =>
         {
             timerText.Text = minutes.ToString("00") + ":" + seconds.ToString("00");
@@ -124,6 +130,7 @@ public partial class MainWindow : Window
         movesText.Text = "Moves: " + moves;
     }
 
+    // checks if a tableau row needs to be added and if so adds it
     private void TryAddTableauRow(Card card)
     {
         if (Grid.GetRow(card.Image) >= tableauGrid.RowDefinitions.Count - 3)
@@ -136,6 +143,7 @@ public partial class MainWindow : Window
         
     }
 
+    // checks if the last tableau row should be removed and if so removes it
     private void TryRemoveTableauRow(Card card)
     {
         System.Diagnostics.Debug.WriteLine("dragged card row: " + Grid.GetRow(card.Image));
@@ -147,6 +155,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // adjusts the cards in the talon so the three most recently drawn cards still in the talon are visible and the most recent one is draggable
     private void AdjustTalon()
     {
         for (int i = 1; i < 3; i++)
@@ -163,6 +172,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // listener for if a card is clicked. sets the clicked card as the dragged card
     private void Card_MouseDown(object sender, MouseEventArgs e)
     {
         Image image = (Image)sender;
@@ -176,6 +186,7 @@ public partial class MainWindow : Window
         
     }
 
+    // listener for if a card is dropped over a card in the tableau
     private void TableauCard_Drop(object sender, DragEventArgs e)
     {
         Image image = (Image)sender;
@@ -267,6 +278,7 @@ public partial class MainWindow : Window
         e.Handled = true;
     }
 
+    // listener for if a card is dropped over the tableau grid. only used for moving kings to empty columns
     private void TableauGrid_Drop(object sender, DragEventArgs e)
     {
         Grid grid = (Grid)sender;
@@ -358,6 +370,7 @@ public partial class MainWindow : Window
         draggedCard = null;
     }
 
+    // listener for if a card is dropped over a card in the foundation
     private void FoundationCard_Drop(object sender, DragEventArgs e)
     {
         Image image = (Image)sender;
@@ -428,9 +441,10 @@ public partial class MainWindow : Window
         draggedCard = null;
     }
 
+    // listener for if the stock is clicked
     private void OnStockClick(object sender, RoutedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine("stock click");
+        // if there are cards in the stock then move the top card to the top of the talon
         if (solitaire.Stock.Cards.Count > 0)
         {
             Card card = solitaire.Stock.Draw();
@@ -445,6 +459,7 @@ public partial class MainWindow : Window
             card.Image.MouseDown -= OnStockClick;
             card.Draggable = true;
 
+            // adjusts the cards in the talon
             for (int i = 1; i <= 2; i++)
             {
                 if (solitaire.Talon.Cards.Count > i)
@@ -455,6 +470,7 @@ public partial class MainWindow : Window
                 }
             }
 
+            // shows the reset stock button if the stock is empty
             if (solitaire.Stock.Cards.Count == 0)
             {
                 resetStockButton.Visibility = Visibility.Visible;
@@ -463,6 +479,7 @@ public partial class MainWindow : Window
         }
     }
 
+    // listener for the reset stock button
     private void ResetStock_Click(object sender, EventArgs e)
     {
         if (solitaire.Stock.Cards.Count != 0)
@@ -470,6 +487,7 @@ public partial class MainWindow : Window
             return;
         }
 
+        // moves each card in the talon back to the stock
         for (int i = 0; i < solitaire.Talon.Cards.Count; i++)
         {
             Card card = solitaire.Talon.Cards[i];
@@ -489,11 +507,13 @@ public partial class MainWindow : Window
         IncrementMoves();
     }
 
+    // listener for the reset game button
     private void ResetButton_Click(object sender, EventArgs e)
     {
         ResetGame();
     }
 
+    // resets the game
     public void ResetGame()
     {
         System.Diagnostics.Debug.WriteLine("resetting game");

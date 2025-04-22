@@ -14,6 +14,7 @@ namespace SolitaireGames
             Shuffle();
         }
 
+        // clears the deck and adds every card to it
         public void ResetDeck()
         {
             Cards.Clear();
@@ -43,6 +44,7 @@ namespace SolitaireGames
             }
         }
 
+        // shuffles the deck
         public void Shuffle()
         {
             Random rand = new Random();

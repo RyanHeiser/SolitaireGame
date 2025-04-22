@@ -20,6 +20,7 @@ namespace SolitaireGames
             SetUpStock();
         }
 
+        // restarts the game
         public void RestartGame()
         {
             Tableau.Clear();
@@ -35,6 +36,7 @@ namespace SolitaireGames
             SetUpStock();
         }
 
+        // sets up the tableau by drawing cards from the deck
         private void SetUpTableau()
         {
             for (int i = 0; i < 7; i++)
@@ -55,6 +57,7 @@ namespace SolitaireGames
             }
         }
 
+        // sets up the stock by drawing the remaining cards from the deck
         private void SetUpStock()
         {
             while(Deck.Cards.Count > 0)
@@ -64,6 +67,7 @@ namespace SolitaireGames
             }
         }
 
+        // moves a card from any pile to a card in the tableau
         public void MoveFromPileToTableau(Pile pile, Card moved, Card movedTo)
         {
             pile.RemoveCard(moved);
@@ -73,6 +77,7 @@ namespace SolitaireGames
             movedTo.Image.AllowDrop = false;
         }
 
+        // moves a card from any pile to a column in the tableau
         public void MoveFromPileToTableau(Pile pile, Card moved, int columnIndex)
         {
             pile.RemoveCard(moved);
@@ -86,7 +91,7 @@ namespace SolitaireGames
             }
             moved.Image.AllowDrop = true;
         }
-
+        // moves a card from the tableau to a card in a pile
         public void MoveFromTableauToPile(Pile pile, Card moved, Card movedTo)
         {
             Pile oldPile = Tableau.GetPile(moved);

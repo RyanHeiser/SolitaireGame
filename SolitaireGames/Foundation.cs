@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,16 +21,19 @@ namespace SolitaireGames
             AddSuitIcons();
         }
 
+        // returns true if the piles in the foundation are full
         public Boolean Full()
         {
             return hearts.Cards.Count == MAX_CARDS && diamonds.Cards.Count == MAX_CARDS && clubs.Cards.Count == MAX_CARDS && spades.Cards.Count == MAX_CARDS;
         }
 
+        // returns true if the foundation contains the card
         public Boolean Contains(Card card)
         {
             return hearts.Cards.Contains(card) || diamonds.Cards.Contains(card) || clubs.Cards.Contains(card) || spades.Cards.Contains(card);
         }
 
+        // returns the pile of the card
         public Pile GetPile(Card card)
         {
             if (hearts.Cards.Contains(card))
@@ -54,6 +58,7 @@ namespace SolitaireGames
             }
         }
 
+        // returns the piles in the foundation
         public List<Pile> GetPiles()
         {
             List<Pile> piles = new List<Pile>();
@@ -64,6 +69,7 @@ namespace SolitaireGames
             return piles;
         }
 
+        // clears the foundation
         public void Clear()
         {
             hearts.Clear();
@@ -72,6 +78,7 @@ namespace SolitaireGames
             spades.Clear();
         }
 
+        // adds the suit icon images to the foundation in the window
         public void AddSuitIcons()
         {
             hearts.AddCard(new Card(CardSuit.Hearts, CardValue.Null));
